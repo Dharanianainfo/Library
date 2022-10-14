@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dbConfig = require('./db.config');
-const User = require('./user.model');
+const User = require('./model/user.model');
 const Chat = require('./user_model');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -21,7 +21,11 @@ app.get('/users',(req, res) => {
 res.send('We are at home')
 });
 
-// app.use('/uploads', express.static(__dirname +'/uploads/'));
+app.get('/product',(req, res) => {
+    res.send('We are at home')
+    });
+
+    app.use("/uploads",express.static("uploads"))
 
 // var storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -116,6 +120,7 @@ const io = require('socket.io')(server, {cors: {origins: "*:*"}});
                     user_id: user._id,
 
                 }
+                console.log(user._id);
                 console.log(model);
                 const chat = new Chat(model);
                 chat.save()
@@ -139,20 +144,41 @@ const io = require('socket.io')(server, {cors: {origins: "*:*"}});
 app.use(
     auth.authenticateToken.unless({
         path: [
+            { url: "/users/sregister", methods: ["POST"] },
+            { url: "/users/proRegister", methods: ["POST"] },
             { url: "/users/userLogin", methods: ["POST"] },
-            { url: "/users/ownerLogin", methods: ["POST"] },
-            { url: "/users/shopAdminLogin", methods: ["POST"] },
-            { url: "/users/adminLogin", methods: ["POST"] },
-            { url: "/users/userRegister", methods: ["POST"] },
-            { url: "/users/ownerRegister", methods: ["POST"] },
-            { url: "/users/shopAdminRegister", methods: ["POST"] },
-            { url: "/product/vegtables", methods: ["POST"] },
-            { url: "/product/Fruits", methods: ["POST"] },
-            { url: "/product/household", methods: ["POST"] },
-            { url: "/product/snaks", methods: ["POST"] },
-            { url: "/product/vegetableGet", methods: ["GET"] },
-            { url: "/product/fruitklsGet", methods: ["GET"] },
-            { url: "/product/getone", methods: ["GET"] },
+            { url: "/admin/adminRegister", methods: ["POST"] },
+            { url: "/admin/category", methods: ["POST"] },
+            { url: "/admin/adminLogin", methods: ["POST"] },
+            { url: "/admin/bookRegister", methods: ["POST"] },
+            
+            // { url: "/users/shopAdminRegister", methods: ["POST"] },
+            // { url: "/product/productregister", methods: ["POST"] },
+            // { url: "/users/userLogin", methods: ["POST"] },
+            // { url: "/users/ownerLogin", methods: ["POST"] },
+            // { url: "/users/shopAdminLogin", methods: ["POST"] },
+            // { url: "/users/adminLogin", methods: ["POST"] },
+            // { url: "/product/Fruits", methods: ["POST"] },
+            // { url: "/product/household", methods: ["POST"] },
+            // { url: "/product/snaks", methods: ["POST"] },
+            // { url: "/product/vegetableGet", methods: ["GET"] },
+            // { url: "/product/fruitklsGet", methods: ["GET"] },
+            // { url: "/product/getone", methods: ["GET"] },            
+            // { url: "/product/getonedata", methods: ["GET"] },
+            // { url: "/users/adminRegister", methods: ["POST"] },
+            // { url: "/product/cart", methods: ["POST"] },
+            // { url: "/product/cart", methods: ["GET"] },
+            // { url: "/product/cart", methods: ["DELETE"] },
+            // { url: "/product/getonedata/:_id/addCart", methods: ["GET"] },
+            // { url: "/product/getonedata/:_id/deleteCart", methods: ["GET"] },
+            // { url: "/product/addOrder", methods: ["POST"] },
+            // { url: "/users/profile", methods: ["Post"] },
+            // { url: "/product/getimageproduct", methods: ["GET"] },
+            // { url: "/product/oneimageproduct/:_id", methods: ["GET"] },
+            // { url: "/product/cancelbyuser/:_id", methods: ["GET"] },
+            // { url: "/product/getimageproduct", methods: ["GET"] },
+            // { url: "/product/oneimageproduct/:_id", methods: ["GET"] },
+            // { url: "/product/getonedata/:_id/addCart", methods: ["GET"] },
         ],
     })
 );
@@ -160,7 +186,7 @@ app.use(
 app.use(express.json());
 
 app.use("/users", require('./users.routes'));
-app.use("/product", require('./users.routes'));
+app.use("/admin", require('./users.routes'));
 // app.use("/product",async function (req,res ){
 //     console.log(req);
 // });

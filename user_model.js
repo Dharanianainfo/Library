@@ -6,10 +6,10 @@ const chatSchema = new Schema({
         type: String,
         required: true,
     },
-    ride_id: {
-        type: String,
-        required: true,
-    },
+    // ride_id: {
+    //     type: String,
+    //     required: true,
+    // },
 
     socket_id: {
         type: String,

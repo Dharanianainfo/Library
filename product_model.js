@@ -9,7 +9,7 @@ const productSchema = new Schema({
     },
 
     product_price: {
-        type: String,
+        type: Number,
         required: true,
         
     },
@@ -38,7 +38,7 @@ const productSchema = new Schema({
         },
     Category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Categorys',
+        ref: 'Category',
         required: true,    
     },
     // subCategorys: {
@@ -60,10 +60,10 @@ const productSchema = new Schema({
     //     }],
     //     required: true,    
     // },
-    product_userType: {
-        type: String,
-        enum : ['vegtables','Fruits','household','snaks'],  
-    },
+    // product_userType: {
+    //     type: String,
+    //     enum : ['vegtables','Fruits','household','snaks'],  
+    // },
     
     date: {
         type: Date,

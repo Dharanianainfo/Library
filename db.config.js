@@ -1,3 +1,3 @@
 module.exports = {
-    db: 'mongodb+srv://balaji:12balaji34@cluster0.t341a.mongodb.net/bike-holic?retryWrites=true&w=majority'
+    db: 'mongodb+srv://chidambarabalaji:qwerty123@cluster0.i1a5qda.mongodb.net/Libary_AnAinfo?retryWrites=true&w=majority'
 };

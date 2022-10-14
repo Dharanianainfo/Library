@@ -1,0 +1,7 @@
+{"product_name": "aa",
+        "product_price": "bb",
+        "product_image": "https://lh3.googleusercontent.com/a-/AFdZucpHVpQtjaTYyglsZybFX7jsa2klR5GpbhuMUUYn-J0=s96-c",
+        "secondary_image": [],
+        "product_description": "cc",
+        "product_isLikeMe": "dd",
+        "product_userType":"vegtables"}
