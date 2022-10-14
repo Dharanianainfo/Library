@@ -174,56 +174,56 @@ async function categorylist(params, callback) {
 }
 
 
-async function subcategorylist(params, callback) {
+// async function subcategorylist(params, callback) {
   
-    const product = new SubCategory(params);
-    product.save()
+//     const product = new SubCategory(params);
+//     product.save()
 
-        .then((response) => {
-            return callback(null, response);
+//         .then((response) => {
+//             return callback(null, response);
 
-        }).catch((error) => {
-            return callback(error);
-        });
-}
+//         }).catch((error) => {
+//             return callback(error);
+//         });
+// }
 
-async function houseHoldList(params, callback) {
-    // console.log("ee");
-    // if(params.category_id === undefined){
+// async function houseHoldList(params, callback) {
+//     // console.log("ee");
+//     // if(params.category_id === undefined){
 
-    //     return callback({message: "Required"});
-    // }
+//     //     return callback({message: "Required"});
+//     // }
 
-    params["product_userType"] = 'household';
-    const product = new Product(params);
-    product.save()
+//     params["product_userType"] = 'household';
+//     const product = new Product(params);
+//     product.save()
 
-        .then((response) => {
-            return callback(null, response);
+//         .then((response) => {
+//             return callback(null, response);
 
-        }).catch((error) => {
-            return callback(error);
-        });
-}
+//         }).catch((error) => {
+//             return callback(error);
+//         });
+// }
 
-async function snaksList(params, callback) {
-    // console.log("ee");
-    // if(params.category_id === undefined){
+// async function snaksList(params, callback) {
+//     // console.log("ee");
+//     // if(params.category_id === undefined){
 
-    //     return callback({message: "Required"});
-    // }
-    params["product_userType"] = 'snaks';
+//     //     return callback({message: "Required"});
+//     // }
+//     params["product_userType"] = 'snaks';
 
-    const product = new Product(params);
-    product.save()
+//     const product = new Product(params);
+//     product.save()
 
-        .then((response) => {
-            return callback(null, response);
+//         .then((response) => {
+//             return callback(null, response);
 
-        }).catch((error) => {
-            return callback(error);
-        });
-}
+//         }).catch((error) => {
+//             return callback(error);
+//         });
+// }
 
 
 
@@ -242,132 +242,129 @@ async function snaksList(params, callback) {
 //         return callback(error);
 //     });
 // }
-async function addCart(params, callback) {
-    if (!params.userId) {
-        return callback({
-            message: "userId required"
-        });
-    }
-    cart.findOne({ userId: params.userId }, function (err, cartDB) {
-        if (err) {
-            return callback(err);
+// async function addCart(params, callback) {
+//     if (!params.userId) {
+//         return callback({
+//             message: "userId required"
+//         });
+//     }
+//     cart.findOne({ userId: params.userId }, function (err, cartDB) {
+//         if (err) {
+//             return callback(err);
 
-        } else {
-            if (cartDB == null) {
-                const cartModel = new Cart.cart({
-                    userId: params.userId,
-                    products: params.products
-                });
+//         } else {
+//             if (cartDB == null) {
+//                 const cartModel = new Cart.cart({
+//                     userId: params.userId,
+//                     products: params.products
+//                 });
 
-                cartModel
-                    .save()
-                    .then((response) => {
-                        return callback(null, response);
-                    })
-                    .catch((error) => {
-                        return callback(error);
-                    });
-            }
-            else if (cartDB.product.length == 0) {
-                cartDB.products = params.products;
-                cartDB.save();
-                return callback(null, cartDB);
-            }
-            else {
-                async.eachSeries(params.products, function (product, asyncDone) {
-                    let itemIndex = cartDB.products.findIndex(p => p.product == product.product)
+//                 cartModel
+//                     .save()
+//                     .then((response) => {
+//                         return callback(null, response);
+//                     })
+//                     .catch((error) => {
+//                         return callback(error);
+//                     });
+//             }
+//             else if (cartDB.product.length == 0) {
+//                 cartDB.products = params.products;
+//                 cartDB.save();
+//                 return callback(null, cartDB);
+//             }
+//             else {
+//                 async.eachSeries(params.products, function (product, asyncDone) {
+//                     let itemIndex = cartDB.products.findIndex(p => p.product == product.product)
 
-                    if (itemIndex == -1) {
-                        cartDB.products.push({
-                            product: product.product,
-                            qty: product.qty
-                        });
-                        cartDB.save(asyncDone);
-                    }
-                    else {
-                        cartDB.products[itemIndex].qty = cartDB.products[itemIndex].qty + product.qty;
-                        cartDB.save(asyncDone);
-                    }
-                });
-                return callback(null, cartDB);
-            }
-        }
-    })
-}
+//                     if (itemIndex == -1) {
+//                         cartDB.products.push({
+//                             product: product.product,
+//                             qty: product.qty
+//                         });
+//                         cartDB.save(asyncDone);
+//                     }
+//                     else {
+//                         cartDB.products[itemIndex].qty = cartDB.products[itemIndex].qty + product.qty;
+//                         cartDB.save(asyncDone);
+//                     }
+//                 });
+//                 return callback(null, cartDB);
+//             }
+//         }
+//     })
+// }
 
-async function getCart(params, callback) {
-    cart.findOne({ userId: params.userId })
-        .populate({
-            path: "products",
-            populate: {
-                path: 'product',
-                model: 'Product',
-                select: 'product_name product_price product_image',
-                populate: {
-                    path: "categorys",
-                    model: 'Category',
-                    select: 'name'
-                }
-            }
-        })
-        .then((response) => {
-            return callback(null, response);
-        })
-        .catch((error) => {
-            return callback(error);
-        });
-}
+// async function getCart(params, callback) {
+//     cart.findOne({ userId: params.userId })
+//         .populate({
+//             path: "products",
+//             populate: {
+//                 path: 'product',
+//                 model: 'Product',
+//                 select: 'product_name product_price product_image',
+//                 populate: {
+//                     path: "categorys",
+//                     model: 'Category',
+//                     select: 'name'
+//                 }
+//             }
+//         })
+//         .then((response) => {
+//             return callback(null, response);
+//         })
+//         .catch((error) => {
+//             return callback(error);
+//         });
+// }
 
-async function removeCartItem(params, callback) {
-    cart.findOne({ userId: params.userId }, function (err, cartDB) {
-        if (err) { return callback(err); }
-        else {
-            if (params._id && params.qty) {
-                const _id = params._id;
-                const qty = params.qty;
+// async function removeCartItem(params, callback) {
+//     cart.findOne({ userId: params.userId }, function (err, cartDB) {
+//         if (err) { return callback(err); }
+//         else {
+//             if (params._id && params.qty) {
+//                 const _id = params._id;
+//                 const qty = params.qty;
 
-                if (cartDB.products.length == 0) {
-                    return callback(null, "cart empty!");
-                }
-                else {
-                    let itemIndex = cartDB.products.findIndex(p => p.product == _id);
+//                 if (cartDB.products.length == 0) {
+//                     return callback(null, "cart empty!");
+//                 }
+//                 else {
+//                     let itemIndex = cartDB.products.findIndex(p => p.product == _id);
 
-                    if (itemIndex === -1) {
-                        return callback(null, "Invalid Products!");
-                    } else {
-                        if (cartDB.products[itemIndex].qty === qty) {
-                            cartDB.products.splice(itemIndex, 1);
-                        }
-                        else if (cartDB.products[itemIndex].qty > qty) {
-                            cartDB.products[itemIndex].qty = cartDB.products[itemIndex].qty - qty;
-                        }
-                        else {
-                            return callback(null, "Enter lower Qty");
-                        }
-                        cartDB.save((err, cartM) => {
-                            if (err) return callback(err);
-                            return callback(null, "cart updated");
-                        })
-                    }
-                }
-            }
-        }
-    })
-}
+//                     if (itemIndex === -1) {
+//                         return callback(null, "Invalid Products!");
+//                     } else {
+//                         if (cartDB.products[itemIndex].qty === qty) {
+//                             cartDB.products.splice(itemIndex, 1);
+//                         }
+//                         else if (cartDB.products[itemIndex].qty > qty) {
+//                             cartDB.products[itemIndex].qty = cartDB.products[itemIndex].qty - qty;
+//                         }
+//                         else {
+//                             return callback(null, "Enter lower Qty");
+//                         }
+//                         cartDB.save((err, cartM) => {
+//                             if (err) return callback(err);
+//                             return callback(null, "cart updated");
+//                         })
+//                     }
+//                 }
+//             }
+//         }
+//     })
+// }
 
 module.exports = {
     userLogin,
     adminLogin,
     proRegister,
     categorylist,
-    subcategorylist,
+   
     bookRegister,
-    houseHoldList,
-    snaksList,
+   
     register,
     adminRegister,
-    addCart,
-    getCart,
-    removeCartItem
+    
 
 };

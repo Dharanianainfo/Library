@@ -20,8 +20,10 @@ const model = require('./model')
 app.get('/users',(req, res) => {
 res.send('We are at home')
 });
-
-app.get('/product',(req, res) => {
+app.get('/',(req, res) => {
+    res.send('Good')
+    });
+app.get('/admin',(req, res) => {
     res.send('We are at home')
     });
 
