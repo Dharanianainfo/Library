@@ -13,8 +13,8 @@ function authenticateToken(req, res, next){
     });
 }
 
-function generateAccessToken(email){
-    return jwt.sign({data: email}, "Snippet_SceretKey", {
+function generateAccessToken(data1){
+    return jwt.sign({data1: data1}, "Snippet_SceretKey", {
         expiresIn: "365d",
     });
 }

@@ -8,11 +8,15 @@ const issueSchema = new Schema({
             type : mongoose.Schema.Types.ObjectId,
             ref : 'Book', 
         },
-        title : String,
-        author : String,
-        
-        category : String,
-        stock : Number,
+        title : {type : String,ref : 'book', required:true,},
+        author : {type : String,ref : 'book',required:true,},
+        bookId:{type : Number,ref : 'book',required:true,},
+        Sname:{type:String,ref: 'book',required: true},
+        genre: {type: String,ref: 'book',required: true},
+        stock : {
+            type: Number,
+           },
+       
         issueDate : {type : Date, default : Date.now()},
         returnDate : {type : Date, default : Date.now() + 7*24*60*60*1000},
         isRenewed : {type : Boolean, default : false},

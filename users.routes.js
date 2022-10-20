@@ -10,43 +10,28 @@ const upload = require('./multer');
 routes.post("/sregister", userController.studentRegister);
 routes.post("/proRegister", userController.proRegister);
 routes.post("/userLogin", userController.userLogin);
+routes.get("/getoneUser/:_id", verifyToken.authenticateToken,userController.getoneUser);
+routes.post("/upload-file",upload.array("imgUrl"), userController.getFileUrl);
+routes.get("/profile-picture", verifyToken.authenticateToken,userController.profilePic);
+routes.post("/profile-change",verifyToken.authenticateToken,upload.array("imgUrl"),userController.Profilepic_change);
+routes.post("/issuebooks", verifyToken.authenticateToken, userController.postIssueBook);
+routes.get("/return-renew", verifyToken.authenticateToken, userController.getShowRenewReturn);
+routes.post("/book-renew", verifyToken.authenticateToken, userController.postRenewBook);
+routes.post("/book-return/:_id", verifyToken.authenticateToken, userController.postReturnBook);
+routes.get("/user-flag/:_id", verifyToken.authenticateToken, userController.getFlagUser);
 //admin
 routes.post("/adminRegister", userController.adminRegister);
 routes.post("/adminLogin", userController.adminLogin);
 //book
 routes.post("/category",verifyToken.authenticateToken, userController.categorylist);
-routes.post("/bookRegister", verifyToken.authenticateToken,userController.bookRegister);
-
-// routes.post("/ownerLogin", userController.ownerLogin);
-// routes.post("/shopAdminLogin", userController.shopAdminLogin);
-// routes.get("/user-profile", userController.userProfile);
-// routes.post("/category",verifyToken.authenticateToken, userController.categorylist);
-// routes.post("/household", userController.houseHoldList);
-// routes.post("/snacks", userController.snaksList);
-// routes.post("/adminRegister", userController.adminRegister);
-// routes.post("/cart", userController.create);
-// routes.get("/cart", userController.findAll);
-// routes.get("/getonedata/:_id/addOrder", verifyToken.authenticateToken ,userController.addOrder);
-// routes.delete("/cart", userController.delete);
-// routes.post("/addOrder", verifyToken.authenticateToken ,userController.addOrder)
-// routes.get("/getonedata", function () {
-//     console.log("log");
-// } );
-// routes.get("/getonedata/:_id/addCart", verifyToken.authenticateToken ,userController.addCart)
-// routes.get("/getonedata/:_id/deleteCart", verifyToken.authenticateToken ,userController.deleteCart)
-// routes.get("/cartone/:_id", verifyToken.authenticateToken ,userController.cartOne)
-
-// routes.get("/getonedata/:_id", verifyToken.authenticateToken,userController.getonedata);
-// routes.get("/vegetableGet", verifyToken.authenticateToken, userController.vegetableGet);
-// routes.get("/getone", verifyToken.authenticateToken, userController.getone);
-// routes.get("/getimageproduct", verifyToken.authenticateToken, userController.getimageproduct);
-// routes.get("/oneimageproduct/:_id", verifyToken.authenticateToken, userController.oneimageproduct);
-// routes.get("/productList", async function (req,res ){
-//     console.log(req);
-// } );
-// routes.post("/profile",upload.single('image'),verifyToken.authenticateToken,userController.Product)
-// routes.get("/getimageproduct",verifyToken.authenticateToken,userController.getimageproduct)
-// routes.get("/oneimageproduct/:_id",verifyToken.authenticateToken,userController.oneimageproduct)
-// routes.get("/cancelbyuser/:_id", verifyToken.authenticateToken ,userController.cancelbyuser)
+routes.get("/getbycategory", verifyToken.authenticateToken, userController.getbyCategory);
+routes.get("/getbysubcategory", verifyToken.authenticateToken, userController.getbysubCategory);
+routes.post("/subcategory",verifyToken.authenticateToken, userController.subcategorylist);
+routes.post("/bookRegister", verifyToken.authenticateToken,upload.array("imgUrl"),userController.bookRegister);
+routes.get("/getAllbook", verifyToken.authenticateToken,userController.getAllbook);
+routes.get("/deleteUser/:_id", verifyToken.authenticateToken,userController.deleteUser);
+routes.get("/updateUser/:_id", verifyToken.authenticateToken,userController.updateUser);
+routes.get("/deleteBook/:_id", verifyToken.authenticateToken,userController.deleteBook);
+routes.get("/updateBook/:_id", verifyToken.authenticateToken,userController.updateBook);
 
 module.exports = routes;

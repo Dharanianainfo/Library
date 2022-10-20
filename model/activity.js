@@ -6,6 +6,10 @@ const activitySchema = new mongoose.Schema({
            type : mongoose.Schema.Types.ObjectId,
            ref : "Book",
        },
+       bookId:{
+        type:Number,
+        ref : 'Book'
+       },
        title : String,
    },
    
@@ -26,6 +30,10 @@ const activitySchema = new mongoose.Schema({
             ref : "User",
         },
         username : String,
+        Idcard:{
+            type: String,
+            ref : "User"
+        }
     },
     
     fine : {

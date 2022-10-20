@@ -3,7 +3,7 @@ const Product = require('./product_model');
 const Cart = require('./cart.model');
 const Category = require('./model/categories_model');
 const Book = require('./model/book')
-const SCategory = require('./model/sub');
+const Scategory = require('./model/sub');
 
 const bcrypt = require('bcryptjs');
 const auth = require('./auth');
@@ -13,47 +13,9 @@ const { response } = require('express');
 
 
 async function userLogin({ Idcard, password }, callback) {
-    const user = await User.findOne({
-        $or: [{
-          "Idcard": Idcard
-        }, {
-          "phoneNumber": Idcard
-        },]
-      });
-
-   // const user1 = await User.findOne({ phoneNumber });
-    // console.log(user1.password)
-    //console.log(phoneNumber)
+    const user = await User.findOne({"Idcard": Idcard});
     if (user != null ) {
-        // if (user) {
-        //     if (bcrypt.compareSync(password, user.password)) {
-        //         const token = auth.generateAccessToken(user._id);
-        //         console.log("user")
-        //         return callback(null, { ...user.toJSON(), token });
-        //     }
-        //     else {
-        //         return callback({
-        //             message: "Invalid username/password",
-        //         });
-        //     }
-        // }
-        // else if (user1) {
-        //     if (bcrypt.compareSync(password, user1.password)) {
-        //         const token = auth.generateAccessToken(user1._id);
-        //         console.log("user1")
-        //         return callback(null, { ...user1.toJSON(), token });
-        //     }
-        //     else {
-        //         return callback({
-        //             message: "Invalid username/password",
-        //         });
-        //     }
-        // }
-        //  else {
-        //     return callback({
-        //         message: "Invalid username/password",
-        //     });
-        // }
+       
         if (bcrypt.compareSync(password, user.password)) {
                     const token = auth.generateAccessToken(user._id);
                     console.log("user")
@@ -74,7 +36,7 @@ async function userLogin({ Idcard, password }, callback) {
 
 }
 async function adminLogin({ Idcard, password }, callback) {
-    const user = await User.findOne({ Idcard });
+    const user = await User.findOne({"Idcard": Idcard});
 console.log(user)
     if (user != null) {
         if (bcrypt.compareSync(password, user.password)) {
@@ -163,6 +125,18 @@ async function bookRegister(params, callback) {
 async function categorylist(params, callback) {
   
     const product = new Category(params);
+    product.save()
+
+        .then((response) => {
+            return callback(null, response);
+
+        }).catch((error) => {
+            return callback(error);
+        });
+}
+async function subcategorylist(params, callback) {
+  
+    const product = new Scategory(params);
     product.save()
 
         .then((response) => {
@@ -360,9 +334,8 @@ module.exports = {
     adminLogin,
     proRegister,
     categorylist,
-   
+    subcategorylist,
     bookRegister,
-   
     register,
     adminRegister,
     

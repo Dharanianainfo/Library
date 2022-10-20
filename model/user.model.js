@@ -35,13 +35,17 @@ const userSchema = new Schema({
       joined: { type: Date, default: Date.now() },
       bookIssueInfo: [
         {
-          book_info: {
-            id: {
+            _id: {
               type: mongoose.Schema.Types.ObjectId,
               ref: "Issue",
             },
+            title : {type : String,ref : 'book', required:true,},
+            author : {type : String,ref : 'book',required:true,},
+        bookId:{type : Number,ref : 'book',required:true,},
+        genre: {type: String,ref: 'book',required: true},
+        code: {type: String,ref: 'book',required: true},
           },
-        },
+      
       ],
       userType: {
         type: String,

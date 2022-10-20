@@ -11,12 +11,15 @@ const errors = require('./error');
 const { query } = require('express');
 const multer=require('multer');
 const path= require('path');
+const cors = require('cors');
 const routes = express.Router();
 // const router =require('./router')
 // app.use("/users",router)
 // const file=require("fs")
 const model = require('./model')
-
+app.use(cors({
+    origin: '*'
+}));
 app.get('/users',(req, res) => {
 res.send('We are at home')
 });
@@ -127,7 +130,7 @@ const io = require('socket.io')(server, {cors: {origins: "*:*"}});
                 const chat = new Chat(model);
                 chat.save()
                 
-            //    .then((response) => {
+            //    .then((response) => {_id
             //     return callback(null, response);
                 
             //      }).catch((error) => {
@@ -149,38 +152,27 @@ app.use(
             { url: "/users/sregister", methods: ["POST"] },
             { url: "/users/proRegister", methods: ["POST"] },
             { url: "/users/userLogin", methods: ["POST"] },
+            { url: "/users/getAllbook", methods: ["GET"] },
+            { url: "/users/getbycategory", methods: ["GET"] },
+            { url: "/users/getbysubcategory", methods: ["GET"] },
             { url: "/admin/adminRegister", methods: ["POST"] },
             { url: "/admin/category", methods: ["POST"] },
+            { url: "/admin/subcategory", methods: ["POST"] },
             { url: "/admin/adminLogin", methods: ["POST"] },
             { url: "/admin/bookRegister", methods: ["POST"] },
-            
-            // { url: "/users/shopAdminRegister", methods: ["POST"] },
-            // { url: "/product/productregister", methods: ["POST"] },
-            // { url: "/users/userLogin", methods: ["POST"] },
-            // { url: "/users/ownerLogin", methods: ["POST"] },
-            // { url: "/users/shopAdminLogin", methods: ["POST"] },
-            // { url: "/users/adminLogin", methods: ["POST"] },
-            // { url: "/product/Fruits", methods: ["POST"] },
-            // { url: "/product/household", methods: ["POST"] },
-            // { url: "/product/snaks", methods: ["POST"] },
-            // { url: "/product/vegetableGet", methods: ["GET"] },
-            // { url: "/product/fruitklsGet", methods: ["GET"] },
-            // { url: "/product/getone", methods: ["GET"] },            
-            // { url: "/product/getonedata", methods: ["GET"] },
-            // { url: "/users/adminRegister", methods: ["POST"] },
-            // { url: "/product/cart", methods: ["POST"] },
-            // { url: "/product/cart", methods: ["GET"] },
-            // { url: "/product/cart", methods: ["DELETE"] },
-            // { url: "/product/getonedata/:_id/addCart", methods: ["GET"] },
-            // { url: "/product/getonedata/:_id/deleteCart", methods: ["GET"] },
-            // { url: "/product/addOrder", methods: ["POST"] },
-            // { url: "/users/profile", methods: ["Post"] },
-            // { url: "/product/getimageproduct", methods: ["GET"] },
-            // { url: "/product/oneimageproduct/:_id", methods: ["GET"] },
-            // { url: "/product/cancelbyuser/:_id", methods: ["GET"] },
-            // { url: "/product/getimageproduct", methods: ["GET"] },
-            // { url: "/product/oneimageproduct/:_id", methods: ["GET"] },
-            // { url: "/product/getonedata/:_id/addCart", methods: ["GET"] },
+            { url: "/admin/deleteUser/:_id", method:["GET"]},
+            { url: "/admin/updateUser/:_id", method:["GET"]},   
+            { url: "/admin/deleteBook/:_id", method:["GET"]},
+            { url: "/admin/updateBook/:_id", method:["GET"]},   
+            { url: "/admin/upload-file" , method:["POST"]},  
+            { url: "/admin/profile-picture" , method:["GET"]},  
+            { url: "/admin/profile-change" , method:["POST"]}, 
+            { url: "/users/issuebooks" , method:["POST"]}, 
+            { url: "/users/return-renew" , method:["GET"]},  
+            { url: "/users/book-renew" , method:["POST"]},
+            { url: "/users/book-return/:_id" , method:["POST"]},
+            { url: "/admin/user-flag/:_id" , method:["GET"]},
+                 
         ],
     })
 );
